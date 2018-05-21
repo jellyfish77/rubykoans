@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 class AboutNil < Neo::Koan
   def test_nil_is_an_object
-    assert_equal __, nil.is_a?(Object), "Unlike NULL in other languages"
+    assert_equal true, nil.is_a?(Object), "Unlike NULL in other languages"
   end
 
   def test_you_dont_get_null_pointer_errors_when_calling_methods_on_nil
@@ -12,12 +12,14 @@ class AboutNil < Neo::Koan
     begin
       nil.some_method_nil_doesnt_know_about
     rescue Exception => ex
+      #print "Le error: " + $!
       # What exception has been caught?
-      assert_equal __, ex.class
+      #assert_equal NoMethodError, ex.class
+      assert_equal __(NoMethodError), ex.class
 
       # What message was attached to the exception?
       # (HINT: replace __ with part of the error message.)
-      assert_match(/__/, ex.message)
+      assert_match(/#{__("undefined method")}/, ex.message)
     end
   end
 
